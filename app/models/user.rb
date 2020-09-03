@@ -51,10 +51,11 @@ class User < ApplicationRecord
   end
 
   def kind
-    return "super" if super_admin?
-    return "admin" if organization_admin?
-
-    "normal"
+    r = []
+    r << "super" if super_admin?
+    r << "admin" if organization_admin?
+    r << "normal" unless r.any?
+    r.to_sentence
   end
 
   def flipper_id

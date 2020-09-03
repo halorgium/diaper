@@ -38,6 +38,12 @@ class OrganizationsController < ApplicationController
     redirect_to organization_path, notice: "User has been promoted!"
   end
 
+  def demote_to_org_user
+    user = User.find_by!(id: params[:user_id], organization_id: current_organization.id)
+    user.update(organization_admin: false)
+    redirect_to organization_path, notice: "User has been demoted!"
+  end
+
   private
 
   def authorize_user
